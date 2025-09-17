@@ -4,8 +4,8 @@ from abc import ABC, abstractmethod
 
 Non_chicken = [ "Burger", "Hot dog", "Grilled cheese"]
 Chicken = [ "Chicken nuggets", "Chicken sandwhich"]
-Sauce = ["Ketchup", "Sweet n' Sour", "Mustard", "Mayonaise", "Spicy"]
-sides = [ "Fruit cup", "Fries", "Brussel sprouts", "Salad", "Tomato soup"] 
+Sauce = ["Ketchup", "Sweet n' Sour", "Mustard", "Mayonaise", "Spicy", "no sauce"]
+sides = [ "Fruit cup", "Fries", "Brussel sprouts", "Salad", "Tomato soup", "no side"] 
 curse_main = ["'Mystery Meat' sandwhich", "'worker' sandwhich", "you know what I want.", "your shift is over."]
 curse_side =["rocks","potentially lethal rocks", "'fries' dipped in 'red sauce'", "broccoli "] 
 
@@ -19,11 +19,13 @@ class Stage(ABC):
 
     def order(self):
         for i in range(self.customers): 
-            print("A customer walks up and starts to order. 'I would like to have:") # add on code to randomize there order 
+            print("A customer walks up and starts to order, looking up at the board.") # add on code to randomize there order 
             choice = (random.choice(reg_list))
             item = random.choice(choice)
-            print(item)
-
+            item2 = random.choice(choice)
+            print("I would like to have " + item + " and " item2)
+            
+    
 
 s = Stage(4)
 
