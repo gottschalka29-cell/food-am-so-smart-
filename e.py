@@ -2,7 +2,7 @@ import random
 from abc import ABC, abstractmethod
 import time
 import os
-food = ""
+
 complete = "Yes"
 client = ""
 def clear_terminal():
@@ -11,7 +11,7 @@ def clear_terminal():
     else:
         os.system("clear")
 
-Non_chicken = [ "Burger", "Hot dog", "Grilled cheese"]
+Meat = [ "Cheeseburger", "Hot dog", "Single patty burger", "Burger", "Kid's hotdog"]
 Chicken = [ "Chicken nuggets", "Chicken sandwhich"]
 Sauce = ["Ketchup", "Sweet n' Sour", "Mustard", "Mayonaise", "Spicy", "no sauce"]
 sides = [ "Fruit cup", "Fries", "Brussel sprouts", "Salad", "Tomato soup", "no side"] 
@@ -24,7 +24,7 @@ three = "A shady man walks up to the counter, wallet in hand as he glances at th
 # ten = "a wisp appears in front of you, holding out its order on a card" add later if you have time
 next_customer =[one, two, three]
 
-reg_list = [Non_chicken, Chicken]
+reg_list = [Meat, Chicken]
 
 class Stage(ABC):
     
@@ -32,25 +32,13 @@ class Stage(ABC):
     def __init__(self,customers,main):
         self.customers =customers 
         self.main = main 
-        main = Non_chicken or Chicken
         pass 
     
-    def answer(self):
-        self.answer != complete
-        print(client)
-        time.sleep(1)
-        print(food)
-        time.sleep(2)
-        print("What did the customer order?", end = "\r")
-        input("what type of main did they order?")
-        if input == food:
-            print("yay")
-            self.answer = complete 
-            print("yes")
+
     
     def order(self):
-        food = random.choice(self.main)
         client = random.choice(next_customer)
+        print(client)
         
 
 
@@ -59,20 +47,38 @@ class Stage(ABC):
             self.order()
             time.sleep(1)
             self.answer()
-            if self.answer == complete:
-                continue 
+            
+            
+    def answer(self): #fix the printing system 
+        self.answer != complete
+        question = input("what type of main did they order? A Chicken or a Meat main?")
+        if question == self.main: 
+            print("What did they order from this category?")
+            response = input(print(self.main + "?"))
+            if response == self.food:
+                self.answer = complete 
+                print("yes")    
+                
+        # elif:
+        #     if question != self.main:
+        #         print("Please try again. This is what the customer wanted for their main.")
+        #         print(self.food)
             
     def stage_complete(self):
         pass 
 
 test =Stage(n_a, n_a)
 class StageOne(Stage):
-    def __init__(self, customers, main):
+    def __init__(self, customers):
         self.customers = customers
-        self.main = main 
+        self.main = Meat 
     def order(self):
+        food = random.choice(self.main)
         super().order() 
-        print(client) 
+        print("The customer wants:" + food )
+    def stage_setup(self):
+        self.main = Meat
+        super().stage_setup()
 
 class StageThree(Stage):
     def __init__(self,customers,main, side, sauce):
@@ -84,7 +90,7 @@ class StageFour(Stage):
 
         
 
-s1 =StageOne(2, Non_chicken)
+s1 =StageOne(2)
 
 def game_start():
     global s1
@@ -101,9 +107,7 @@ def game_start():
     print("1!")
     time.sleep(1)
     print("Go!")
-    clear_terminal()
-    time.sleep(1)
-    s1.order()
-    s1.answer()
+    # clear_terminal()
+    s1.stage_setup()
     
 game_start()
