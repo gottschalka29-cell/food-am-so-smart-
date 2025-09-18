@@ -1,9 +1,10 @@
-import math
 import random
 from abc import ABC, abstractmethod
 import time
 import os
-
+food = ""
+complete = "Yes"
+client = ""
 def clear_terminal():
     if os.name == "nt":
         os.system("cls")
@@ -27,36 +28,51 @@ reg_list = [Non_chicken, Chicken]
 
 class Stage(ABC):
     
+    
     def __init__(self,customers,main):
         self.customers =customers 
-        self.main = main
+        self.main = main 
+        main = Non_chicken or Chicken
         pass 
     
     def answer(self):
+        self.answer != complete
+        print(client)
+        time.sleep(1)
+        print(food)
+        time.sleep(2)
         print("What did the customer order?", end = "\r")
-        # input("What main did they want?", end = "\r")
+        input("what type of main did they order?")
+        if input == food:
+            print("yay")
+            self.answer = complete 
+            print("yes")
     
     def order(self):
-        self.main = random.choice(self.main)
+        food = random.choice(self.main)
         client = random.choice(next_customer)
-        print(client)
         
 
 
     def stage_setup(self):
         for i in range(self.customers):
             self.order()
+            time.sleep(1)
             self.answer()
+            if self.answer == complete:
+                continue 
+            
+    def stage_complete(self):
+        pass 
 
+test =Stage(n_a, n_a)
 class StageOne(Stage):
     def __init__(self, customers, main):
         self.customers = customers
-        self.choice = Non_chicken 
+        self.main = main 
     def order(self):
         super().order() 
-        print(random.choice(next_customer))
-    def stage_setup(self):
-        return super().stage_setup()
+        print(client) 
 
 class StageThree(Stage):
     def __init__(self,customers,main, side, sauce):
@@ -68,7 +84,7 @@ class StageFour(Stage):
 
         
 
-s1 =StageOne(4,Non_chicken)
+s1 =StageOne(2, Non_chicken)
 
 def game_start():
     global s1
@@ -87,7 +103,7 @@ def game_start():
     print("Go!")
     clear_terminal()
     time.sleep(1)
-    s1.stage_setup()
+    s1.order()
+    s1.answer()
     
 game_start()
-
